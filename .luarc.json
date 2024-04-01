@@ -1,7 +1,8 @@
 
 {
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "has_words_before"
     ],
     "diagnostics.disable": [
         "duplicate-index"
