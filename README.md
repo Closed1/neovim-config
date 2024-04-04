@@ -1,1 +1,1 @@
-my own neovim configuration
+Neovim configuration based on typcraft neovim series
