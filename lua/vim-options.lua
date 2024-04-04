@@ -1,3 +1,6 @@
+vim.cmd("set clipboard=unnamedplus")
+vim.cmd("set hidden")
+vim.cmd("set mouse=a")
 vim.cmd("set smarttab")
 vim.cmd("set autoindent")
 vim.cmd("set expandtab")
