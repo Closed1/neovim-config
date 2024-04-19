@@ -1,19 +1,17 @@
 return {
-	{
-		"ellisonleo/gruvbox.nvim",
-		priority = 1000,
-		config = true,
-		opts = ...,
-		config = function()
-			vim.cmd.colorscheme("gruvbox")
-		end,
-	},
+    {
+        "ellisonleao/gruvbox.nvim",
+        --setting gurvbox as the default theme
+        config = function()
+            vim.cmd.colorscheme("gruvbox")
+        end,
+    },
 
-	{
-		"tanvirtin/monokai.nvim",
-	},
+    {
+        "tanvirtin/monokai.nvim",
+    },
 
-	{
-		"Mofiqul/dracula.nvim",
-	},
+    {
+        "Mofiqul/dracula.nvim",
+    },
 }
