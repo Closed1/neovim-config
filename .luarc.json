@@ -2,9 +2,11 @@
 {
     "diagnostics.globals": [
         "vim",
-        "has_words_before"
+        "has_words_before",
+        "section"
     ],
     "diagnostics.disable": [
-        "duplicate-index"
+        "duplicate-index",
+        "unused-local"
     ]
 }
