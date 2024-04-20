@@ -7,7 +7,6 @@ return {
 	config = function()
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
-
 		dashboard.section.header.val = {
 			[[                                              ___  ]],
 			[[                                           ,o88888 ]],
@@ -29,15 +28,12 @@ return {
 			[[    .. . ....:."' `   .  . . ''                    ]],
 			[[  . . . ...."'                                     ]],
 			[[  .. . ."'           N E O V I M                   ]],
-			[[ .                                                 ]],
-			[[                                                   ]],
 		}
 		dashboard.section.buttons.val = {
 			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("Ctrl + p", "  Find file"),
+			dashboard.button("p", "   Find file", ":Telescope find_files <CR>"),
 			dashboard.button("r", "   Recent", ":Telescope oldfiles<CR>"),
-			dashboard.button("Leader +fj", "  Find Word"),
-			dashboard.button("s", "   Settings", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+			dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<cr>"),
 			dashboard.button("q", "  Quit NeoVim", ":qa<cr>"),
 		}
 		alpha.setup(dashboard.opts)
