@@ -3,10 +3,12 @@
     "diagnostics.globals": [
         "vim",
         "has_words_before",
-        "section"
+        "section",
+        "hl_name_list"
     ],
     "diagnostics.disable": [
         "duplicate-index",
-        "unused-local"
+        "unused-local",
+        "undefined-global"
     ]
 }
