@@ -1,20 +1,12 @@
 return {
-	{
-		"ellisonleao/gruvbox.nvim",
-		--setting gurvbox as the default theme
-		config = function()
-			require("gruvbox").setup({
-				bold = false,
-			})
-			vim.cmd.colorscheme("gruvbox")
-		end,
-	},
-
-	{
-		"tanvirtin/monokai.nvim",
-	},
-
-	{
-		"Mofiqul/dracula.nvim",
-	},
+  {
+    "ellisonleao/gruvbox.nvim",
+    --setting gurvbox as the default theme
+    config = function()
+      require("gruvbox").setup({
+        bold = false,
+      })
+      vim.cmd.colorscheme("gruvbox")
+    end,
+  },
 }
