@@ -1,41 +1,103 @@
 return {
-	"goolord/alpha-nvim",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
+  "goolord/alpha-nvim",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+    "nvim-lua/plenary.nvim",
+  },
+  config = function()
+    local alpha = require("alpha")
+    local dashboard = require("alpha.themes.dashboard")
 
-	config = function()
-		local alpha = require("alpha")
-		local dashboard = require("alpha.themes.dashboard")
-		dashboard.section.header.val = {
-			[[                                              ___  ]],
-			[[                                           ,o88888 ]],
-			[[                                        ,o8888888' ]],
-			[[                  ,:o:o:oooo.        ,8O88Pd8888"  ]],
-			[[              ,.::.::o:ooooOoOoO. ,oO8O8Pd888'"    ]],
-			[[            ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O"      ]],
-			[[           , ..:.::o:ooOoOOOO8OOOOo.FdO8O8"        ]],
-			[[          , ..:.::o:ooOoOO8O888O8O,COCOO"          ]],
-			[[         , . ..:.::o:ooOoOOOO8OOOOCOCO"            ]],
-			[[          . ..:.::o:ooOoOoOO8O8OCCCC"o             ]],
-			[[             . ..:.::o:ooooOoCoCCC"o:o             ]],
-			[[             . ..:.::o:o:,cooooCo"oo:o:            ]],
-			[[          `   . . ..:.:cocoooo"'o:o:::'            ]],
-			[[          .`   . ..::ccccoc"'o:o:o:::'             ]],
-			[[         :.:.    ,c:cccc"':.:.:.:.:.'              ]],
-			[[       ..:.:"'`::::c:"'..:.:.:.:.:.'               ]],
-			[[     ...:.'.:.::::"'    . . . . .'                 ]],
-			[[    .. . ....:."' `   .  . . ''                    ]],
-			[[  . . . ...."'                                     ]],
-			[[  .. . ."'           N E O V I M                   ]],
-		}
-		dashboard.section.buttons.val = {
-			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("p", "   Find file", ":Telescope find_files <CR>"),
-			dashboard.button("r", "   Recent", ":Telescope oldfiles<CR>"),
-			dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<cr>"),
-			dashboard.button("q", "  Quit NeoVim", ":qa<cr>"),
-		}
-		alpha.setup(dashboard.opts)
-	end,
+    -- Helper function for UTF-8 characters
+    local function getCharLen(s, pos)
+      local byte = string.byte(s, pos)
+      if not byte then
+        return nil
+      end
+      return (byte < 0x80 and 1) or (byte < 0xE0 and 2) or (byte < 0xF0 and 3) or (byte < 0xF8 and 4) or 1
+    end
+
+    local function applyColors(logo, colors, logoColors)
+      dashboard.section.header.val = logo
+
+      for key, color in pairs(colors) do
+        local name = "Alpha" .. key
+        vim.api.nvim_set_hl(0, name, color)
+        colors[key] = name
+      end
+
+      dashboard.section.header.opts.hl = {}
+      for i, line in ipairs(logoColors) do
+        local highlights = {}
+        local pos = 0
+
+        for j = 1, #line do
+          local opos = pos
+          pos = pos + getCharLen(logo[i], opos + 1)
+
+          local color_name = colors[line:sub(j, j)]
+          if color_name then
+            table.insert(highlights, { color_name, opos, pos })
+          end
+        end
+
+        table.insert(dashboard.section.header.opts.hl, highlights)
+      end
+      return dashboard.opts
+    end
+
+    require("alpha").setup(applyColors({
+      [[  ███       ███  ]],
+      [[  ████      ████ ]],
+      [[  ████     █████ ]],
+      [[ █ ████    █████ ]],
+      [[ ██ ████   █████ ]],
+      [[ ███ ████  █████ ]],
+      [[ ████ ████ ████ ]],
+      [[ █████  ████████ ]],
+      [[ █████   ███████ ]],
+      [[ █████    ██████ ]],
+      [[ █████     █████ ]],
+      [[ ████      ████ ]],
+      [[  ███       ███  ]],
+      [[                    ]],
+      [[  N  E  O  V  I  M  ]],
+    }, {
+      ["b"] = { fg = "#3399ff", ctermfg = 33 },
+      ["a"] = { fg = "#53C670", ctermfg = 35 },
+      ["g"] = { fg = "#39ac56", ctermfg = 29 },
+      ["h"] = { fg = "#33994d", ctermfg = 23 },
+      ["i"] = { fg = "#33994d", bg = "#39ac56", ctermfg = 23, ctermbg = 29 },
+      ["j"] = { fg = "#53C670", bg = "#33994d", ctermfg = 35, ctermbg = 23 },
+      ["k"] = { fg = "#30A572", ctermfg = 36 },
+    }, {
+      [[  kkkka       gggg  ]],
+      [[  kkkkaa      ggggg ]],
+      [[ b kkkaaa     ggggg ]],
+      [[ bb kkaaaa    ggggg ]],
+      [[ bbb kaaaaa   ggggg ]],
+      [[ bbbb aaaaaa  ggggg ]],
+      [[ bbbbb aaaaaa igggg ]],
+      [[ bbbbb  aaaaaahiggg ]],
+      [[ bbbbb   aaaaajhigg ]],
+      [[ bbbbb    aaaaajhig ]],
+      [[ bbbbb     aaaaajhi ]],
+      [[ bbbbb      aaaaajh ]],
+      [[  bbbb       aaaaa  ]],
+      [[                    ]],
+      [[  a  a  a  b  b  b  ]],
+    }))
+
+    -- Define buttons
+    dashboard.section.buttons.val = {
+      dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+      dashboard.button("p", "  Find file", ":Telescope find_files <CR>"),
+      dashboard.button("r", "  Recent", ":Telescope oldfiles<CR>"),
+      dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<cr>"),
+      dashboard.button("q", "  Quit NeoVim", ":qa<cr>"),
+    }
+
+    -- Set up alpha with the dashboard configuration
+    alpha.setup(dashboard.opts)
+  end,
 }
