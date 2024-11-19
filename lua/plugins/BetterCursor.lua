@@ -1,7 +1,7 @@
 return {
-   {
-        "sontungexpt/stcursorword",
-        event = "VeryLazy",
-        config = true,
-    },
+	{
+		"sontungexpt/stcursorword",
+		event = "VeryLazy",
+		config = true,
+	},
 }
