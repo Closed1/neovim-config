@@ -9,7 +9,7 @@ return {
     -- press zo to unfold the function
 
     -- UI fold settings
-    vim.o.foldcolumn = '1'        -- Show fold column (like sign column)
+    vim.o.foldcolumn = '0'        -- Show fold column (like sign column)
     vim.o.foldlevel = 99          -- Ensure folds are open
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true       -- Enable folding
